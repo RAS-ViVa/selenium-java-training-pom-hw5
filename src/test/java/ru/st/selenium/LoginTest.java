@@ -9,16 +9,10 @@ public class LoginTest extends ru.st.selenium.pages.TestBase {
 
   @BeforeMethod
   public void mayBeLogout() {
-    if (app.getUserHelper().isLoggedIn()) {
-      app.getUserHelper().logout();
+    if (app.getUserHelper().isNotLoggedIn()) {
+      return;
     }
-  }
-  
-  @Test
-  public void testLoginOK() throws Exception {
-    User user = new User().setLogin("admin").setPassword("admin");
-    app.getUserHelper().loginAs(user);
-    assertTrue(app.getUserHelper().isLoggedInAs(user));
+    app.getUserHelper().logout();
   }
 
   @Test
@@ -29,4 +23,12 @@ public class LoginTest extends ru.st.selenium.pages.TestBase {
     assertTrue(app.getUserHelper().isNotLoggedIn());
   }
 
+  
+  @Test
+  public void testLoginOK() throws Exception {
+    User user = new User().setLogin("admin").setPassword("admin");
+    app.getUserHelper().loginAs(user);
+    assertTrue(app.getUserHelper().isLoggedInAs(user));
+  }
+  
 }
